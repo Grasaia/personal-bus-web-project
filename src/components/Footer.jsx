@@ -14,9 +14,11 @@ const navLinks = [
 ]
 
 const services = [
-  { label: 'Web Design & Consultation', path: '/services' },
-  { label: 'Full Stack Development', path: '/services' },
-  { label: 'Enterprise Solutions', path: '/services' },
+  { label: 'Website Rescue', path: '/services' },
+  { label: 'Local Visibility', path: '/services' },
+  { label: 'Booking Setup', path: '/services' },
+  { label: 'White-Label Dev', path: '/services' },
+  { label: 'Catalog Cleanup', path: '/services' },
 ]
 
 export default function Footer() {
@@ -34,8 +36,7 @@ export default function Footer() {
               </span>
             </Link>
             <p className="footer__tagline">
-              We build digital experiences that drive real business results. 
-              Premium web development & design for ambitious brands.
+              Multi-service digital agency helping small businesses fix, grow, and automate — at prices that make sense.
             </p>
             <div className="footer__socials">
               <a href="https://twitter.com" aria-label="Twitter" className="footer__social-link" target="_blank" rel="noopener noreferrer">

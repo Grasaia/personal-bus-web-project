@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { FiMail, FiPhone, FiMapPin, FiSend, FiCheckCircle } from 'react-icons/fi'
 import './Contact.css'
@@ -11,29 +12,48 @@ const fadeUp = (delay = 0) => ({
 })
 
 const PROJECT_TYPES = [
-  'Web Design & Consultation',
-  'Full Stack Development',
-  'Enterprise Solution',
-  'UI/UX Design',
-  'E-commerce Store',
-  'Other',
+  'Website Rescue — Starter Fix ($149)',
+  'Website Rescue — Full Cleanup ($399)',
+  'Website Rescue — Care Plan ($69/mo)',
+  'Local Visibility — Profile Setup ($199)',
+  'Local Visibility — Ongoing Management ($149/mo)',
+  'Booking Setup — Basic ($299)',
+  'Booking Setup — Full Automation ($549)',
+  'Booking Setup — Monitoring ($79/mo)',
+  'White-Label Dev — Small Project ($350)',
+  'White-Label Dev — Medium Project ($750)',
+  'White-Label Dev — Large Project ($1,500+)',
+  'Catalog Cleanup — Small Batch ($149)',
+  'Catalog Cleanup — Full Catalog ($399)',
+  'Other / Custom Quote',
 ]
 
 const BUDGETS = [
-  '$1,000 – $3,000',
-  '$3,000 – $6,000',
-  '$6,000 – $12,000',
-  '$12,000+',
+  'Under $200',
+  '$200 – $500',
+  '$500 – $1,000',
+  '$1,000 – $2,000',
+  '$2,000+',
+  'Monthly retainer',
   'Not sure yet',
 ]
 
 export default function Contact() {
+  const [searchParams] = useSearchParams()
   const [form, setForm] = useState({
     name: '', email: '', company: '', phone: '',
     projectType: '', budget: '', message: ''
   })
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    const svc = searchParams.get('service')
+    if (svc) {
+      const match = PROJECT_TYPES.find(t => t.toLowerCase().includes(svc.toLowerCase()))
+      if (match) setForm(prev => ({ ...prev, projectType: match }))
+    }
+  }, [])
 
   const handleChange = (e) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
